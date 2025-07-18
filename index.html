@@ -1,26 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Terms of Service</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { max-width: 800px; margin: 2em auto; font-family: sans-serif; line-height: 1.7; background: #f8f8fa; color: #333; }
-    h1 { border-bottom: 2px solid #555; padding-bottom: .2em; }
-    h2 { margin-top: 2em; color: #223; }
-    hr { margin: 2em 0; border: none; border-top: 1px solid #ccc; }
-    ul { margin-left: 1.5em; }
-    code, pre { background: #f4f4f4; border-radius: 4px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitokoto App - Express Your "Now" in a Unique Phrase</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .hero-section {
+            background: 
+                linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2084&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1px);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .app-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: none;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .special-point {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .special-point h5 {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .flow-step {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .flow-step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .beta-badge {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .cta-button {
+            background: var(--secondary-gradient);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        .bg-light-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+        }
+        
+        .privacy-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .privacy-section .section-title {
+            color: white;
+        }
+        
+        .recommended-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recommended-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recommended-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .recommended-list li i {
+            color: #667eea;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .flow-step::after {
+                display: none;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>HitokoroApp</h1>
-  <hr>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="app-icon">📱</div>
+                <h1 class="hero-title">Hitokoto App</h1>
+                <p class="hero-subtitle">Express Your "Now" in a Unique Phrase</p>
+                <a href="#features" class="cta-button">
+                    <i class="fas fa-arrow-down"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <h2>Introduction</h2>
-  
-  <p>
-    Line連携でTikTokに投稿できる！
-  </p>
+    <!-- What is this app Section -->
+    <section id="features" class="section bg-light-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">
+                        <i class="fas fa-sparkles"></i> What is this app?
+                    </h2>
+                    <div class="text-center mb-5">
+                        <h4 class="text-primary">Make your daily "hitokoto" more uniquely you.</h4>
+                        <p class="lead">
+                            "Hitokoto App" is a self-expression support app that uses AI to <strong>complement phrases based on your personality type (MBTI)</strong> from your short words, and lets you <strong>choose the perfect photo to post on social media</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 Special Points -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i> 3 Special Features
+            </h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="special-point">
+                        <h5><i class="fas fa-mobile-alt"></i> No Installation Required</h5>
+                        <p>No need to download any app at all</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="special-point">
+                        <h5><i class="fab fa-line"></i> Easy Access via LINE</h5>
+                        <p>Use immediately with LINE that you use every day</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="special-point">
+                        <h5><i class="fas fa-user-plus"></i> Just Add as Friend</h5>
+                        <p>No complicated registration required, just add as a LINE friend</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Features -->
+    <section class="section bg-light-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-rainbow"></i> Main Features
+            </h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>MBTI-Based Phrase Completion</h4>
+                        <p>AI creates words that match your personality type</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h4>Photo Combination for Social Media</h4>
+                        <p>AI automatically selects images that match your words for instant posting to Instagram, TikTok, etc.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <h4>Just One Word is Enough!</h4>
+                        <p>No complex settings needed. Just start by casually posting a word</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4>Works Within LINE</h4>
+                        <p>Complete everything within your familiar LINE app, no need to learn new apps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Users -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-bullseye"></i> Perfect for These People!
+            </h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <ul class="recommended-list">
+                        <li><i class="fas fa-user"></i> People struggling with social media content ideas</li>
+                        <li><i class="fas fa-heart"></i> People who want to express themselves in their own unique way</li>
+                        <li><i class="fas fa-chart-line"></i> People who love MBTI and self-analysis</li>
+                        <li><i class="fas fa-camera-retro"></i> People who want to easily create Instagram and TikTok-worthy posts</li>
+                        <li><i class="fas fa-mobile"></i> People who don't want to install many apps</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="section bg-light-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i> How to Use
+            </h2>
+            <div class="row">
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <h6>Add LINE Friend</h6>
+                        <p>Post your hitokoto</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <h6>AI Auto-Completion</h6>
+                        <p>Enhanced to your unique expression</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <h6>Auto Background Photo</h6>
+                        <p>Perfect mood-matching images</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <h6>Edit & Trim</h6>
+                        <p>Final adjustments</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <h6>Post to Social Media</h6>
+                        <p>Or save for later use</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="section privacy-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i> Usage & Privacy
+            </h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-4">
+                        <p><i class="fas fa-check-circle"></i> Posts are selected and managed by users themselves</p>
+                        <p><i class="fas fa-info-circle"></i> Storage capacity and post limits vary by plan</p>
+                    </div>
+                    <div class="mt-4">
+                        <p><strong>Privacy Policy and Terms of Service:</strong></p>
+                        <a href="#" class="cta-button me-3">
+                            <i class="fas fa-file-contract"></i> View Terms of Service
+                        </a>
+                        <a href="#" class="cta-button">
+                            <i class="fas fa-user-shield"></i> View Privacy Policy
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Section -->
+    <section class="section bg-light-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">
+                    <i class="fas fa-flask"></i> Currently in Beta Testing
+                </h2>
+                <div class="beta-badge">
+                    <i class="fas fa-exclamation-triangle"></i> Beta Version - Test Release
+                </div>
+                <p class="lead">
+                    This is a trial operation before the official release. Functions may change without notice.
+                </p>
+                <p class="mb-4">
+                    Please feel free to share your opinions and requests through LINE chat.
+                </p>
+                <a href="#" class="cta-button">
+                    <i class="fab fa-line"></i> Add LINE Friend & Try Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section privacy-section">
+        <div class="container">
+            <div class="text-center">
+                <h3>Hitokoto App</h3>
+                <p>Express Your "Now" in a Unique Phrase</p>
+                <div class="mt-3">
+                    <i class="fas fa-heart text-danger"></i> Made with love for self-expression
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add scroll animation to cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card, .flow-step').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
